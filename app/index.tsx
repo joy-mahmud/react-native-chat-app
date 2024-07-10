@@ -1,15 +1,19 @@
-import { Text, View } from "react-native";
-
-export default function Index() {
+import { styled } from "nativewind";
+import { ActivityIndicator, Text, View } from "react-native";
+const StyledView = styled(View)
+const StyledText = styled(Text)
+export default function StartPage() {
   return (
-    <View
+    <StyledView
       style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
       }}
+      className='bg-slate-400'
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+      <StyledText className='text-2xl font-bold'>Home</StyledText>
+      <ActivityIndicator size='large' color={'black'}></ActivityIndicator>
+    </StyledView>
   );
 }
