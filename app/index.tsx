@@ -12,7 +12,6 @@ export default function StartPage() {
       }}
       className='bg-slate-400'
     >
-      <StyledText className='text-2xl font-bold'>Home</StyledText>
       <ActivityIndicator size='large' color={'black'}></ActivityIndicator>
     </StyledView>
   );

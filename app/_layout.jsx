@@ -9,11 +9,11 @@ const MainLayout = ()=>{
   const router = useRouter()
 
   useEffect(()=>{
-    if(typeof isAuthenticated=='undefined') return
+    if(typeof isAuthenticated=='undefined') return;
     const inApp = segments[0]=='(app)'
     if(isAuthenticated && !inApp){
       router.replace('/home')
-    } else if (!isAuthenticated){
+    } else if (isAuthenticated==false){
       router.replace('/signIn')
     }
   },[isAuthenticated])
