@@ -5,8 +5,10 @@ import { Feather, Octicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import Loading from '../components/loading';
 import CustomKeyboardAvoidingView from '../components/CustomKeyboardAvoidingView';
+import {useAuth} from '../context/authContext'
 
 const Signup = () => {
+    const {register} = useAuth()
     const router = useRouter()
     const [loading, setloading] = useState(false)
     const usernameRef = useRef('')
@@ -16,8 +18,17 @@ const Signup = () => {
     const hadleRegister = async () => {
 
         if (!usernameRef.current || !emailRef.current || !passwordRef.current || !profileRef.current) {
+          
             Alert.alert('SignIn', 'Plase fill out all the fields')
             return
+        }
+        setloading(true)
+        console.log(usernameRef.current,emailRef.current,passwordRef.current,profileRef.current)
+        let response = await register(emailRef.current,passwordRef.current,usernameRef.current,profileRef.current)
+        setloading(false)
+        console.log('response:',response)
+        if(!response.success){
+            Alert.alert('signup',response.msg)
         }
     }
     return (
@@ -33,7 +44,8 @@ const Signup = () => {
                     <View style={{ height: hp(7) }} className="bg-neutral-100 flex-row items-center rounded-xl px-4">
                         <Feather name='user' size={hp(2.7)} color='gray' />
                         <TextInput
-                            onChange={(value) => usernameRef.current = value}
+                            onChangeText={(value) => usernameRef.current = value}
+                           
                             className="flex-1 ml-2 font-semibold text-neutral-700"
                             placeholder='Username'
                             placeholderTextColor={'gray'}
@@ -43,7 +55,8 @@ const Signup = () => {
                     <View style={{ height: hp(7) }} className="bg-neutral-100 flex-row items-center rounded-xl px-4">
                         <Octicons name='mail' size={hp(2.7)} color='gray' />
                         <TextInput
-                            onChange={(value) => emailRef.current = value}
+                            onChangeText={(value) => emailRef.current = value}
+                           
                             className="flex-1 ml-2 font-semibold text-neutral-700"
                             placeholder='Email address'
                             placeholderTextColor={'gray'}
@@ -53,7 +66,8 @@ const Signup = () => {
                     <View style={{ height: hp(7) }} className="bg-neutral-100 flex-row items-center rounded-xl px-4">
                         <Octicons name='lock' size={hp(2.7)} color='gray' />
                         <TextInput
-                            onChange={(value) => passwordRef.current = value}
+                            onChangeText={(value) => passwordRef.current = value}
+                           
                             className="flex-1 ml-2 font-semibold text-neutral-700"
                             placeholder='Password'
                             placeholderTextColor={'gray'}
@@ -65,7 +79,8 @@ const Signup = () => {
                     <View style={{ height: hp(7) }} className="bg-neutral-100 flex-row items-center rounded-xl px-4">
                         <Feather name='image' size={hp(2.7)} color='gray' />
                         <TextInput
-                            onChange={(value) => emailRef.current = value}
+                            onChangeText={(value) => profileRef.current = value}
+                           
                             className="flex-1 ml-2 font-semibold text-neutral-700"
                             placeholder='Image URL'
                             placeholderTextColor={'gray'}
