@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useState } from "react";
-import {createUserWithEmailAndPassword, onAuthStateChanged} from 'firebase/auth'
+import {createUserWithEmailAndPassword, onAuthStateChanged, signOut} from 'firebase/auth'
 import {auth} from '../firebaseConfig'
 import { doc, setDoc } from "firebase/firestore";
 import {db} from '../firebaseConfig'
@@ -36,7 +36,7 @@ export const AuthContextProvider =({children})=>{
     }
     const logout = async ()=>{
         try {
-            
+            await signOut(auth)
         } catch (error) {
             console.log(error)
         }
