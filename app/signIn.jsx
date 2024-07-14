@@ -4,8 +4,10 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { Octicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import Loading from '../components/loading';
+import { useAuth } from '../context/authContext';
 
 const SignIn = () => {
+    const{login} = useAuth()
     const router = useRouter()
     const [loading, setloading] = useState(false)
     const emailRef = useRef('')
@@ -16,6 +18,8 @@ const SignIn = () => {
             Alert.alert('SignIn', 'Plase fill out all the fields')
             return
         }
+        login(emailRef.current,passwordRef.current)
+        
     }
     return (
         <View style={{ paddingTop: StatusBar.currentHeight, flex: 1 }}>
@@ -28,7 +32,7 @@ const SignIn = () => {
                 <View style={{ height: hp(7) }} className="bg-neutral-100 flex-row items-center rounded-xl px-4">
                     <Octicons name='mail' size={hp(2.7)} color='gray' />
                     <TextInput
-                        onChange={(value) => emailRef.current = value}
+                        onChangeText={(value) => emailRef.current = value}
                         className="flex-1 ml-2 font-semibold text-neutral-700"
                         placeholder='Email address'
                         placeholderTextColor={'gray'}
@@ -38,7 +42,7 @@ const SignIn = () => {
                 <View style={{ height: hp(7) }} className="bg-neutral-100 flex-row items-center rounded-xl px-4">
                     <Octicons name='lock' size={hp(2.7)} color='gray' />
                     <TextInput
-                        onChange={(value) => passwordRef.current = value}
+                        onChangeText={(value) => passwordRef.current = value}
                         className="flex-1 ml-2 font-semibold text-neutral-700"
                         placeholder='Password'
                         placeholderTextColor={'gray'}
