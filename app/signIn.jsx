@@ -18,8 +18,11 @@ const SignIn = () => {
             Alert.alert('SignIn', 'Plase fill out all the fields')
             return
         }
-        login(emailRef.current,passwordRef.current)
-        
+        setloading(true)
+       const response = await login(emailRef.current,passwordRef.current)
+        if(!response.success){
+            Alert.alert("Sign In",response.msg)
+        }
     }
     return (
         <View style={{ paddingTop: StatusBar.currentHeight, flex: 1 }}>
