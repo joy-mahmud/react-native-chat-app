@@ -38,17 +38,8 @@ export const AuthContextProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in 
-                    const user = userCredential.user;
-                    console.log(user)
-                    setUser(user)
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                  });
+          const response = await  signInWithEmailAndPassword(auth, email, password)
+          return { success: true, data: response?.user }
 
         } catch (error) {
             console.log(error.message)

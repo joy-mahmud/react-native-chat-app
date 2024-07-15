@@ -19,9 +19,9 @@ const Home = () => {
         <Text>logout</Text>
       </Pressable>
      <View>
-        <Text>username: {user.username}</Text>
-        <Text>profileUrl: {user.profileUrl}</Text>
-        <Image resizeMode='contain' height={100} width={120} source={`${user.profileUrl}`}></Image>
+        <Text>username: {user?.username}</Text>
+        <Text>profileUrl: {user?.profileUrl}</Text>
+        
         
      </View>
     </View>
