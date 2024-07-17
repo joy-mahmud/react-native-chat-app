@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from '../firebaseConfig'
@@ -10,14 +10,13 @@ export const AuthContextProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(undefined);
 
     useEffect(() => {
-        // setTimeout(()=>{
-        //     setIsAuthenticated(false)
-        // },3000)
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
+     
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
                 setIsAuthenticated(true)
-                setUser(user)
-                updateUserData(user.uid)
+                setUser(currentUser)
+             
+                
             } else {
                 setIsAuthenticated(false)
                 setUser(null)
@@ -32,13 +31,20 @@ export const AuthContextProvider = ({ children }) => {
         const docSnap = await getDoc(docRef)
         if(docSnap.exists()){
             let data = docSnap.data()
-            setUser({...user,username:data.username,profileUrl:data.profileUrl,userId:data.userId})
+            setUser((prevUser) => ({
+                ...prevUser,
+                username: data.username,
+                profileUrl: data.profileUrl,
+                userId: data.userId,
+              }));
         }
+        
     }
 
     const login = async (email, password) => {
         try {
           const response = await  signInWithEmailAndPassword(auth, email, password)
+          
           return { success: true, data: response?.user }
 
         } catch (error) {
@@ -59,8 +65,10 @@ export const AuthContextProvider = ({ children }) => {
     const register = async (email, password, username, profileUrl) => {
         try {
             const response = await createUserWithEmailAndPassword(auth, email, password)
-            console.log('response:', response.user)
-
+           // console.log('response:', response.user)
+           await updateProfile(auth.currentUser, {
+            displayName: username, photoURL: profileUrl
+          })
             await setDoc(doc(db, 'users', response?.user?.uid), {
                 username,
                 profileUrl,

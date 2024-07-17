@@ -35,7 +35,7 @@ const HomeHeader = () => {
                     >
                         <Image
                             style={{ height: hp(4.3), aspectRatio: 1, borderRadius: 100 }}
-                            source={user?.profileUrl}
+                            source={user?.photoUrl}
                             placeholder={{ blurhash }}
                             transition={500}
                         />
