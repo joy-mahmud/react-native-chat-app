@@ -34,9 +34,10 @@ const Signup = () => {
     return (
    
             <CustomKeyboardAvoidingView >
-                <ScrollView contentContainerStyle={{flex:1}}>
+                <ScrollView style={{flex:1}} contentContainerStyle={{flex:1}} >
+                   
                 <StatusBar barStyle={Platform.OS === 'android' ? 'dark-content' : 'default'}></StatusBar>
-                <View className="w-full flex-start h-[25%]">
+                <View style={{paddingTop:StatusBar.currentHeight}} className="w-full flex-start h-[25%]">
                     <Image resizeMode='contain' style={{ height: '100%', width: '100%' }} source={require('../assets/images/signup-icon.png')}></Image>
                 </View>
                 <View className="px-5 gap-5">
@@ -109,6 +110,7 @@ const Signup = () => {
                     </View>
 
                 </View>
+                
                 </ScrollView>
             </CustomKeyboardAvoidingView>
         

@@ -22,6 +22,7 @@ const SignIn = () => {
        const response = await login(emailRef.current,passwordRef.current)
         if(!response.success){
             Alert.alert("Sign In",response.msg)
+            setloading(false)
         }
     }
     return (

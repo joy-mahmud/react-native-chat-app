@@ -48,10 +48,7 @@ const Home = () => {
     }
     return (
         <View className="flex-1 bg-white">
-            <Text>Home</Text>
-            <Pressable onPress={() => router.push('/signIn')}>
-                <Text>Go to SignIn</Text>
-            </Pressable>
+           
             {
                 users.length > 0 ? (
                     <Chatlist users={users}></Chatlist>

@@ -3,11 +3,11 @@ import React from 'react'
 
 
 
-export default function CustomKeyboardAvoidingView({ children }) {
+export default function CustomKeyboardAvoidingView({children}) {
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{ flex: 1,paddingTop:StatusBar.currentHeight }}
+            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+            style={{ flex: 1}}
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               
