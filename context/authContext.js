@@ -15,7 +15,6 @@ export const AuthContextProvider = ({ children }) => {
             if (currentUser) {
                 setIsAuthenticated(true)
                 setUser(currentUser)
-             
                 
             } else {
                 setIsAuthenticated(false)
@@ -83,7 +82,7 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, login, logout, register }}>
+        <AuthContext.Provider value={{user, isAuthenticated, login, logout, register }}>
             {children}
         </AuthContext.Provider>
     )

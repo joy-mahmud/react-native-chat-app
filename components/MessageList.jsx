@@ -1,9 +1,9 @@
 import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-const MessageList = ({ messages, currentUser }) => {
+const MessageList = ({ messages, currentUser,scrollViewRef }) => {
     return (
-        <ScrollView  showsVerticalScrollIndicator={false} className="p-3 ">
+        <ScrollView ref={scrollViewRef}  showsVerticalScrollIndicator={false} className="p-3 ">
             {
                 messages.map((msg, index) => {
                     if (currentUser?.uid == msg.userId) {

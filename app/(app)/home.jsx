@@ -51,7 +51,7 @@ const Home = () => {
            
             {
                 users.length > 0 ? (
-                    <Chatlist users={users}></Chatlist>
+                    <Chatlist currenntUser={user} users={users}></Chatlist>
                 ) : (
                     <View className="flex items-center" style={{ top: hp(40) }}>
                         <ActivityIndicator size="large" color={'black'}></ActivityIndicator>
