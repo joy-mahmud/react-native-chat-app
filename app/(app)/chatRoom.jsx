@@ -6,7 +6,6 @@ import ChatRoomHeader from '../../components/ChatRoomHeader';
 import MessageList from '../../components/MessageList';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import CustomKeyboardAvoidingView from '../../components/CustomKeyboardAvoidingView';
 import { useAuth } from '../../context/authContext';
 import { getRoomId } from '../../utils/common';
 import { addDoc, collection, doc, onSnapshot, orderBy, query, setDoc, Timestamp } from 'firebase/firestore';
@@ -43,12 +42,18 @@ const ChatRoom = () => {
     }, []);
 
     useEffect(() => {
-        updateScrollView();
+        const timeoutId = setTimeout(() => {
+            if (scrollViewRef.current) {
+                scrollViewRef.current.scrollToEnd({animated:true});
+            }
+        }, 100); // Delay to ensure layout updates are complete
+
+        return () => clearTimeout(timeoutId);
     }, [messages]);
 
     const updateScrollView = () => {
         if (scrollViewRef.current) {
-            scrollViewRef.current.scrollToEnd({ animated: true });
+            scrollViewRef.current.scrollToEnd({animated:true});
         }
     };
 

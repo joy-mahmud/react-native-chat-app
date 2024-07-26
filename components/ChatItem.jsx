@@ -21,7 +21,7 @@ const ChatItem = ({ item,noBorder,router,currentUser }) => {
 
         let unsubscribe = onSnapshot(q, (snapshot) => {
             let allMessages = snapshot.docs.map((doc) => {
-                console.log(doc.data())
+                // console.log(doc.data())
                 return doc.data();
             })
             setlastMessage(allMessages[0])
