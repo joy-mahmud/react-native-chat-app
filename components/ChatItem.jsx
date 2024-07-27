@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Image } from 'expo-image'
-import{blurhash, getRoomId} from '../utils/common'
+import{blurhash, formateDate, getRoomId} from '../utils/common'
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { db } from '../firebaseConfig'
@@ -36,7 +36,16 @@ const ChatItem = ({ item,noBorder,router,currentUser }) => {
         router.push({pathname:'/chatRoom',params:item})
     }
     const renderTime =()=>{
-
+        if(lastMessage){
+            // const date = (new Date(lastMessage.createdAt.seconds * 1000))
+            // const day =date.getDate()
+            // let monthNames=["Jan","Feb","Mar","Apr","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+            // let month= monthNames[date.getMonth()]
+            // const formatedDate=day+' '+month
+            // console.log(formatedDate)
+           return formateDate(new Date(lastMessage.createdAt.seconds * 1000))
+            
+        }
     }
     const renderLastMessage =()=>{
         if(typeof lastMessage =='undefined') return 'Loading...'
@@ -63,7 +72,7 @@ const ChatItem = ({ item,noBorder,router,currentUser }) => {
                     <Text className="text-[18px] font-semibold text-neutral-800">
                         {item?.username}
                     </Text>
-                    <Text className="font-medium text-neutral-500">Time</Text>
+                    <Text className="font-medium text-neutral-500">{renderTime()}</Text>
                 </View>
                 <Text className="font-medium text-neutral-500">{renderLastMessage()}</Text>
             </View>
