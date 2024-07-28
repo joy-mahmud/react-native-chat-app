@@ -37,12 +37,7 @@ const ChatItem = ({ item,noBorder,router,currentUser }) => {
     }
     const renderTime =()=>{
         if(lastMessage){
-            // const date = (new Date(lastMessage.createdAt.seconds * 1000))
-            // const day =date.getDate()
-            // let monthNames=["Jan","Feb","Mar","Apr","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-            // let month= monthNames[date.getMonth()]
-            // const formatedDate=day+' '+month
-            // console.log(formatedDate)
+          
            return formateDate(new Date(lastMessage.createdAt.seconds * 1000))
             
         }
